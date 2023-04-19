@@ -20,9 +20,9 @@ include './partials/function.php';
         <input type="submit">
     </form>
 
-    <h3>
-        <?php echo "La tua password:"; ?>
-    </h3>
+    <h4>
+        <?php echo "LA TUA PASSWORD:"; ?>
+    </h4>
 
     <h3>
         <?php
