@@ -1,7 +1,25 @@
 <?php
-include './partials/function.php';
-?>
+//richiamiamo il file functions per poter utilizzare la nostra funzione.
+//in questo caso non è sufficiente include ma è meglio utilizzare require_once.
+//con include se non dovesse funzionare il file con all'interno la funzione andrebbe a generare un warning ma la pagina continuerebbe a funzionare
+//abbiamo bisogno invece del require_once
+require_once __DIR__ . '/partials/function.php';
 
+//faccio partire la sessione per poter avere accesso alle variabili session
+session_start();
+
+$password = '';
+//controllo se il parametro GET è settato correttamente
+if (isset($_GET['passwordLength']) && $_GET['passwordLength'] >= 4) {
+    $password = randomGeneratePassword($_GET['passwordLength']);
+
+    //salvo il dato della password in una variabile di sessione
+    $_SESSION['password'] = $password;
+
+    //eseguo il redirect
+    header('Location: showPassword.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,14 +38,10 @@ include './partials/function.php';
         <input type="submit">
     </form>
 
-    <h4>
-        <?php echo "LA TUA PASSWORD:"; ?>
-    </h4>
-
     <h3>
         <?php
-        if (isset($passwordLength)) {
-            echo randomPasswordGenerator($passwordLength);
+        if ($password != "") {
+            echo $password;
         }
         ?>
     </h3>
